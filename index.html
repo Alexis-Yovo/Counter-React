@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+
+ // Ajouter un bouton permettant de décrémenter counter de 1, fait en sorte qu'il n'est de descendre en dessous de 0.
+ // Affiché un message d'erreur pour notifier à l'utilisateur qu'il ne peut pas décrementer en dessous de 0, s'il essaye de le faire
+
+// Composant principal de l'application
+ const App = () => {
+  return (<div>
+    <Counter />
+  </div>)
+ }
+
+ // Composant Counter pour gérer le compteur
+ const Counter = () => {
+  // État pour le compteur
+  const [counter, setCounter] = React.useState(0)
+  // État pour le message d'erreur
+  const [error, setError] = React.useState('')
+
+  // Fonction pour incrémenter le compteur
+  const handleIncrement = () => {
+    setCounter(counter + 1)
+    setError('') // Effacer tout message d'erreur précédent
+  }
+
+  // Fonction pour décrémenter le compteur
+  const handleDecrement = () => {
+    if (counter > 0) {
+      setCounter(counter - 1)
+      setError('') // Effacer tout message d'erreur précédent
+    } else {
+      setError('Impossible de décrémenter en dessous de 0')
+    }
+  }
+
+  return (
+    <div>
+      <p>Compteur : {counter}</p>
+      <button onClick={handleIncrement}>+1</button>
+      <button onClick={handleDecrement}>-1</button>
+      {error && <p style={{color: 'red'}}>{error}</p>}
+    </div>
+  )
+ }
+
+ // Rendu de l'application dans l'élément racine
+ const root = ReactDOM.createRoot(
+  document.querySelector("#root")
+ )
+
+ root.render(<App />)
+
+</script>
+</body>
+</html>
